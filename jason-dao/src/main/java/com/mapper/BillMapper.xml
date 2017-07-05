@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.BillDao">
+
+
+	<resultMap type="com.entity.Bill" id="resultBill">
+		<id property="billID" column="bill_id" />
+		<result property="time" column="time" />
+		<result property="type" column="type" />
+		<result property="purpose" column="purpose" />
+		<result property="amount" column="amount" />
+		<result property="remark" column="remark" />
+		<result property="userID" column="user_id" />
+
+
+	</resultMap>
+
+	<!-- 定义要操纵的SQL语句 -->
+	<insert id="create" parameterType="com.entity.Bill">
+		INSERT INTO
+		bill(time,type,purpose,amount,remark,user_id)
+		VALUES(#{time},#{type},#{purpose},#{amount},#{remark},#{userID})
+	</insert>
+    
+    <select id="getBillByBillID" parameterType="String"
+		resultMap="resultBill">
+		select * from bill
+		where bill_id=#{value} 
+	</select>
+	
+	<delete id="del" parameterType="String" >
+		DELETE FROM bill
+		WHERE bill_id=#{value}
+    </delete>
+
+	<select id="getMyBillListByMonth" parameterType="String"
+		resultMap="resultBill">
+		select * from bill
+		where user_id=#{myUserID} and
+		date_format(time,'%Y-%m')=#{time}
+
+		ORDER BY time desc
+
+	</select>
+	
+	
+	<select id="getAllBillListByMonth" parameterType="String"
+		resultMap="resultBill">
+		
+		select * from bill
+		where (user_id=#{myUserID} or   user_id=#{taUserID} ) 
+		
+		and
+		date_format(time,'%Y-%m')=#{time}
+
+		ORDER BY time desc
+		
+		
+
+	</select>
+
+
+
+</mapper>

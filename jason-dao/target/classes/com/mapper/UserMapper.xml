@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.UserDao">
+
+
+	<resultMap type="com.entity.User" id="resultUser">
+		<id property="userID" column="user_id" />
+		<result property="userName" column="user_name" />
+		<result property="password" column="password" />
+		<result property="imgSrc" column="img_src" />
+		<result property="phone" column="phone" /> 
+		<result property="qq " column="qq " /> 
+		<result property="locked" column="locked"/>
+		<result property="role" column="role"/>
+		<result property="hasLover" column="has_lover"/>
+		<result property="loverID" column="lover_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="loginTime" column="login_time"/>
+	</resultMap>
+	
+	<insert id="update" parameterType="com.entity.User">
+	update sys_user set 
+		user_name=#{userName},phone=#{phone},
+		qq=#{qq},password=#{password}
+	where user_id=#{userID}
+	</insert>
+	
+	
+	<select id="login" parameterType="com.entity.User" resultMap="resultUser">
+		SELECT * FROM sys_user
+		WHERE
+		user_name=#{userName} and password=#{password}
+	</select>
+	
+	
+	<select id="getUserByID" resultMap="resultUser">
+		SELECT * FROM sys_user
+		WHERE
+		user_id=#{value}
+	</select>
+   
+    <select id="userNameIsExist" resultType="int">
+		SELECT count(*) FROM sys_user
+		WHERE
+		user_name=#{value}
+	</select>
+   
+    
+	<insert id="uploadImg" parameterType="String">
+	update sys_user set img_src=#{imgSrc}
+	where user_id=#{userID}
+	</insert>
+	
+	
+	<insert id="updateTime" parameterType="String">
+	update sys_user set update_time=#{updateTime}
+	where user_id=#{userID}
+	</insert>
+	
+	<insert id="loginTime" parameterType="String">
+	update sys_user set login_time=#{loginTime}
+	where user_id=#{userID}
+	</insert>
+	
+	
+	<insert id="lock" parameterType="String">
+	update sys_user set locked="1"
+	where user_id=#{value}
+	</insert>
+	
+	<insert id="unLock" parameterType="String">
+	update sys_user set locked="0"
+	where user_id=#{value}
+	</insert>
+	
+    
+ 
+</mapper>
