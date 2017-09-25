@@ -13,4 +13,4 @@
 
 2.备忘录，使用到jquery 日历插件。
 
-4.相册，支持相册加密，使用到session,更加安全。使用web uploader支持多文件上传。使用ffmpedg解析上传的视频文件。
+3.相册，支持相册加密，使用到session,更加安全。使用web uploader支持多文件上传。使用ffmpedg解析上传的视频文件。
